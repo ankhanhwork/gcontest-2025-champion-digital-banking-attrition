@@ -177,8 +177,8 @@ must not be interpreted as a release of the competition data.
 
 ## Contact
 
-**Anh Khanh**  
-Team Leader & Modeler  
+**Anh Khanh**<br>
+Team Leader & Modeler<br>
 GitHub: [@ankhanhwork](https://github.com/ankhanhwork)
 
 ---
