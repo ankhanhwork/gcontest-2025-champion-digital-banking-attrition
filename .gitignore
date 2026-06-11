@@ -1,0 +1,27 @@
+# Private competition materials and source notebook
+private-source/
+
+# Data files are intentionally excluded from this public portfolio
+data/
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.parquet
+*.feather
+*.pkl
+*.pickle
+
+# Notebook and Python artifacts
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+
+# Local environments and editor files
+.venv/
+venv/
+.env
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
