@@ -13,7 +13,7 @@
 
 [View Final Presentation](assets/documents/final-presentation.pdf) |
 [View Certificate](assets/documents/champion-certificate.pdf) |
-[Explore the Notebook](notebooks/digital-banking-attrition-analysis.ipynb)
+[Explore the Split Notebooks](notebooks/full-analysis/README.md)
 
 </div>
 
@@ -49,8 +49,8 @@ The analysis addressed four questions:
 3. Can the bank identify customers at risk before their final attempt?
 4. Which product and operational changes should be prioritized?
 
-Read the rewritten [problem statement](docs/problem-statement.md). Original
-competition briefs and raw data are excluded for confidentiality.
+Read the rewritten [problem statement](docs/problem-statement.md). The raw
+dataset is not included in this public portfolio repository.
 
 ## Key Findings
 
@@ -155,11 +155,20 @@ docs/
   business-recommendations.md
 notebooks/
   digital-banking-attrition-analysis.ipynb
+  full-analysis/
+    README.md
+    01-business-understanding.ipynb
+    02-data-preparation.ipynb
+    03-eda.ipynb
+    04-data-preprocessing.ipynb
+    05-dropoff-modeling.ipynb
+    06-step-failure-modeling.ipynb
+    07-survival-analysis.ipynb
 ```
 
-The public notebook is a cleaned, data-independent portfolio artifact. It
-documents the reproducible analytical design and reported results without
-exposing the competition dataset.
+The `full-analysis` notebooks are split from the original working notebook so
+GitHub can render each stage faster. Raw data and data-loading code are
+excluded, while saved outputs are preserved for review during interviews.
 
 ## Gallery
 
@@ -168,12 +177,12 @@ exposing the competition dataset.
   <p><em>Tomorrow Data Analysts receiving the G'Contest 2025 Champion award.</em></p>
 </div>
 
-## Data Confidentiality
+## Data Availability
 
-The raw dataset, organizer booklets, original case brief, and working notebook
-are intentionally excluded. Public materials contain only rewritten problem
-context, aggregated findings, methodology, and award evidence. This repository
-must not be interpreted as a release of the competition data.
+The raw competition dataset is not uploaded to this repository. The split
+notebooks are intended as a portfolio walkthrough: they keep the completed
+outputs, charts, and model results visible without requiring reviewers to rerun
+private data-loading steps.
 
 ## Contact
 
