@@ -13,7 +13,7 @@
 
 [View Final Presentation](assets/documents/final-presentation.pdf) |
 [View Certificate](assets/documents/champion-certificate.pdf) |
-[Explore the Split Notebooks](notebooks/full-analysis/README.md)
+[Explore the Notebooks](notebooks/README.md)
 
 </div>
 
@@ -154,21 +154,19 @@ docs/
   methodology.md
   business-recommendations.md
 notebooks/
-  digital-banking-attrition-analysis.ipynb
-  full-analysis/
-    README.md
-    01-business-understanding.ipynb
-    02-data-preparation.ipynb
-    03-eda.ipynb
-    04-data-preprocessing.ipynb
-    05-dropoff-modeling.ipynb
-    06-step-failure-modeling.ipynb
-    07-survival-analysis.ipynb
+  README.md
+  01-business-understanding.ipynb
+  02-data-preparation.ipynb
+  03-eda.ipynb
+  04-data-preprocessing.ipynb
+  05-dropoff-modeling.ipynb
+  06-step-failure-modeling.ipynb
+  07-survival-analysis.ipynb
 ```
 
-The `full-analysis` notebooks are split from the original working notebook so
-GitHub can render each stage faster. Raw data and data-loading code are
-excluded, while saved outputs are preserved for review during interviews.
+The notebooks are split from the original working notebook so GitHub can
+render each stage faster. Raw data and data-loading code are excluded, while
+saved outputs are preserved for review during interviews.
 
 ## Gallery
 
