@@ -9,7 +9,7 @@
 [![Achievement](https://img.shields.io/badge/Achievement-Champion-gold)](assets/documents/champion-certificate.pdf)
 [![Role](https://img.shields.io/badge/Role-Team%20Leader%20%26%20Modeler-2563eb)](#my-contribution)
 [![Domain](https://img.shields.io/badge/Domain-Digital%20Banking-0f766e)](#business-problem)
-[![Best ROC-AUC](https://img.shields.io/badge/XGBoost%20ROC--AUC-0.8943-c2410c)](#modeling-results)
+[![Selected Model](https://img.shields.io/badge/Selected%20Model-XGBoost-c2410c)](#modeling-results)
 
 [View Final Presentation](assets/documents/final-presentation.pdf) |
 [View Certificate](assets/documents/champion-certificate.pdf) |
@@ -26,9 +26,8 @@ Vietnam with more than 300 participating teams.
 We studied a digital bank's onboarding funnel to identify why customers
 abandoned account registration and how the bank could intervene. The work
 combined exploratory analysis, behavioral feature engineering, tree-based
-classification, SHAP explainability, and survival analysis. Our selected
-XGBoost model achieved a cross-validated **ROC-AUC of 0.8943** for customer
-drop-off prediction.
+classification, and SHAP explainability. Our selected XGBoost model achieved
+a cross-validated **ROC-AUC of 0.9090** for customer drop-off prediction.
 
 The project went beyond model performance. We translated the evidence into a
 redesigned onboarding journey focused on OCR and OTP reliability, accessible
@@ -62,7 +61,7 @@ dataset is not included in this public portfolio repository.
 | Estimated acquisition value at risk | approximately VND 4.8 billion |
 | Share of failures concentrated in OCR and OTP | approximately 80% |
 | Best drop-off model | XGBoost |
-| Cross-validated ROC-AUC | **0.8943** |
+| Cross-validated ROC-AUC | **0.9090** |
 
 The financial value is an estimate based on the customer acquisition cost
 assumption used in the competition proposal, not realized accounting loss.
@@ -75,11 +74,11 @@ assumption used in the competition proposal, not realized accounting loss.
   business questions.
 - Coordinated the team's workload, synthesis, and final decision-making.
 - Designed customer-level behavioral and historical features for modeling.
-- Built and compared XGBoost, LightGBM, and Random Forest classifiers.
+- Built and compared XGBoost, LightGBM, Random Forest, and CatBoost
+  classifiers.
 - Evaluated models with stratified cross-validation and imbalance-aware
-  metrics, selecting ROC-AUC as the primary comparison metric.
-- Used SHAP and survival analysis to connect model output with interpretable
-  customer behavior.
+  metrics, balancing ROC-AUC with F1, precision, and recall.
+- Used SHAP to connect model output with interpretable customer behavior.
 - Translated analytical findings into product, UI/UX, marketing, and
   operational recommendations.
 - Led the team through the final presentation and defense that earned the
@@ -92,9 +91,9 @@ flowchart LR
     A["Business framing"] --> B["Data quality and cleaning"]
     B --> C["Journey and cohort EDA"]
     C --> D["Behavioral feature engineering"]
-    D --> E["XGBoost, LightGBM, Random Forest"]
+    D --> E["XGBoost, LightGBM, Random Forest, CatBoost"]
     E --> F["Cross-validation and model selection"]
-    F --> G["SHAP and survival analysis"]
+    F --> G["SHAP explainability"]
     G --> H["Product and business actions"]
 ```
 
@@ -108,17 +107,25 @@ cross-validation:
 
 | Model | ROC-AUC | Accuracy | F1 | Precision | Recall |
 |---|---:|---:|---:|---:|---:|
-| **XGBoost** | **0.8943** | 0.9287 | **0.5462** | 0.4742 | **0.6463** |
-| LightGBM | 0.8927 | 0.9303 | 0.5442 | 0.4808 | 0.6281 |
-| Random Forest | 0.8907 | **0.9351** | 0.5255 | **0.5100** | 0.5438 |
+| **XGBoost** | 0.9090 | 0.9207 | **0.5294** | 0.4380 | 0.6711 |
+| LightGBM | **0.9105** | 0.9053 | 0.5120 | 0.3897 | **0.7488** |
+| Random Forest | 0.9074 | **0.9267** | 0.5137 | **0.4593** | 0.5851 |
+| CatBoost | 0.9050 | 0.9089 | 0.5091 | 0.3974 | 0.7107 |
 
-XGBoost was selected because it produced the strongest ROC-AUC and recall,
-which better supported risk prioritization than accuracy alone in an
-imbalanced problem.
+LightGBM produced the highest ROC-AUC by a narrow margin of about 0.0015, but
+XGBoost was selected as the final model because it delivered the strongest
+F1-score and a more balanced precision-recall trade-off. In this imbalanced
+drop-off problem, that balance mattered more than optimizing ROC-AUC alone:
+the model still needed to surface at-risk customers while keeping the alert
+quality credible for business follow-up.
 
-Separate models attempting to predict the exact failure step achieved only
-about **0.5-0.6 ROC-AUC**. We therefore treated their feature importance as
-exploratory evidence rather than production-ready causal conclusions.
+The XGBoost SHAP summary showed that **age** was the strongest model signal.
+Historical friction signals were also prominent, especially prior pending or
+failed activity around contract rejection, OTP, check failure, OCR, and the
+customer's cumulative number of attempts. Device brand and time-context
+features contributed as secondary signals. These patterns were treated as
+model associations to guide investigation and intervention design, not as
+standalone causal proof.
 
 ## Recommendations
 
@@ -141,7 +148,7 @@ prioritization and measurement framework.
 ## Technology Stack
 
 `Python` · `pandas` · `NumPy` · `Matplotlib` · `Seaborn` · `scikit-learn` ·
-`XGBoost` · `LightGBM` · `SHAP` · `lifelines` · `Jupyter Notebook`
+`XGBoost` · `LightGBM` · `CatBoost` · `SHAP` · `Jupyter Notebook`
 
 ## Repository Guide
 
@@ -155,18 +162,15 @@ docs/
   business-recommendations.md
 notebooks/
   README.md
-  01-business-understanding.ipynb
-  02-data-preparation.ipynb
-  03-eda.ipynb
-  04-data-preprocessing.ipynb
-  05-dropoff-modeling.ipynb
-  06-step-failure-modeling.ipynb
-  07-survival-analysis.ipynb
+  01-business-data-eda.ipynb
+  02-preprocessing-dropoff-modeling.ipynb
 ```
 
 The notebooks are split from the original working notebook so GitHub can
 render each stage faster. Raw data and data-loading code are excluded, while
-saved outputs are preserved for review during interviews.
+saved outputs are preserved for review during interviews. The public notebook
+scope focuses on business framing, EDA, preprocessing, final-attempt drop-off
+modeling, and XGBoost SHAP interpretation.
 
 ## Gallery
 

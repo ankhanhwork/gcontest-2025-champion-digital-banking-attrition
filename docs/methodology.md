@@ -58,11 +58,12 @@ record did not contribute to its own predictors.
 
 ## 5. Model Development
 
-Three tree-based classifiers were compared:
+Four tree-based classifiers were compared:
 
 - XGBoost;
 - LightGBM;
-- Random Forest.
+- Random Forest;
+- CatBoost.
 
 The workflow used stratified cross-validation and imbalance-aware evaluation.
 ROC-AUC was the primary model-ranking metric because the business use case was
@@ -73,11 +74,14 @@ Reported cross-validation results:
 
 | Model | ROC-AUC | Accuracy | F1 | Precision | Recall |
 |---|---:|---:|---:|---:|---:|
-| XGBoost | 0.8943 | 0.9287 | 0.5462 | 0.4742 | 0.6463 |
-| LightGBM | 0.8927 | 0.9303 | 0.5442 | 0.4808 | 0.6281 |
-| Random Forest | 0.8907 | 0.9351 | 0.5255 | 0.5100 | 0.5438 |
+| XGBoost | 0.9090 | 0.9207 | 0.5294 | 0.4380 | 0.6711 |
+| LightGBM | 0.9105 | 0.9053 | 0.5120 | 0.3897 | 0.7488 |
+| Random Forest | 0.9074 | 0.9267 | 0.5137 | 0.4593 | 0.5851 |
+| CatBoost | 0.9050 | 0.9089 | 0.5091 | 0.3974 | 0.7107 |
 
-XGBoost was selected for its leading ROC-AUC and recall.
+LightGBM had the highest ROC-AUC by a very small margin, but XGBoost was
+selected because it produced the strongest F1-score and a more balanced
+precision-recall profile for the imbalanced drop-off use case.
 
 ## 6. Explainability
 
@@ -86,28 +90,12 @@ individual feature effects. The interpretation focused on risk signals that
 could be mapped to product interventions rather than treating model
 importance as proof of causality.
 
-## 7. Survival Analysis
+The XGBoost SHAP summary highlighted age as the strongest model signal, with
+historical pending or failed activity around contract rejection, OTP, check
+failure, OCR, and cumulative attempts also contributing strongly. Device brand
+and time-context features were secondary signals.
 
-Kaplan-Meier curves were used to compare continuation behavior across
-customer, device, and time cohorts. Log-rank tests supported group
-comparisons, while a Cox proportional hazards model provided a multivariate
-view of factors associated with abandonment timing.
-
-Survival analysis complemented classification by describing not only whether
-a customer left, but how persistence changed over repeated attempts.
-
-## 8. Step-Specific Models
-
-Separate classifiers were explored for OTP, OCR, privacy, selfie, contract,
-and other failure steps. Their ROC-AUC values were generally around 0.5-0.6.
-These models were not considered reliable enough for deployment.
-
-This negative result is important: step-level feature importance was used only
-as directional evidence, and recommendations relied more heavily on funnel
-concentration, cohort analysis, domain research, and the stronger overall
-drop-off model.
-
-## 9. Limitations
+## 7. Limitations
 
 - The source covered only the first quarter of 2024.
 - Observational associations do not establish causal effects.
