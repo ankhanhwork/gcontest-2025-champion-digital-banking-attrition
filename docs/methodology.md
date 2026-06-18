@@ -79,9 +79,9 @@ Reported cross-validation results:
 | Random Forest | 0.9074 | 0.9267 | 0.5137 | 0.4593 | 0.5851 |
 | CatBoost | 0.9050 | 0.9089 | 0.5091 | 0.3974 | 0.7107 |
 
-LightGBM had the highest ROC-AUC by a very small margin, but XGBoost was
-selected because it produced the strongest F1-score and a more balanced
-precision-recall profile for the imbalanced drop-off use case.
+LightGBM was selected because it achieved the highest ROC-AUC and recall.
+This aligned with the intervention objective: detect as many at-risk customers
+as possible before they left the registration journey.
 
 ## 6. Explainability
 
@@ -90,7 +90,7 @@ individual feature effects. The interpretation focused on risk signals that
 could be mapped to product interventions rather than treating model
 importance as proof of causality.
 
-The XGBoost SHAP summary highlighted age as the strongest model signal, with
+The SHAP summary highlighted age as the strongest model signal, with
 historical pending or failed activity around contract rejection, OTP, check
 failure, OCR, and cumulative attempts also contributing strongly. Device brand
 and time-context features were secondary signals.

@@ -17,7 +17,7 @@ for analytical walkthroughs rather than end-to-end reruns.
 ## Review Notes
 
 - The public scope covers business framing, data preparation, exploratory
-  analysis, preprocessing, final-attempt drop-off prediction, and XGBoost SHAP
+  analysis, preprocessing, final-attempt drop-off prediction, and SHAP
   interpretation.
 - Step-specific failure modeling and other exploratory analytical methods are
   intentionally excluded from this portfolio version.

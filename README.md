@@ -9,7 +9,7 @@
 [![Achievement](https://img.shields.io/badge/Achievement-Champion-gold)](assets/documents/champion-certificate.pdf)
 [![Role](https://img.shields.io/badge/Role-Team%20Leader%20%26%20Modeler-2563eb)](#my-contribution)
 [![Domain](https://img.shields.io/badge/Domain-Digital%20Banking-0f766e)](#business-problem)
-[![Selected Model](https://img.shields.io/badge/Selected%20Model-XGBoost-c2410c)](#modeling-results)
+[![Selected Model](https://img.shields.io/badge/Selected%20Model-LightGBM-c2410c)](#modeling-results)
 
 [View Final Presentation](assets/documents/final-presentation.pdf) |
 [View Certificate](assets/documents/champion-certificate.pdf) |
@@ -26,8 +26,8 @@ Vietnam with more than 300 participating teams.
 We studied a digital bank's onboarding funnel to identify why customers
 abandoned account registration and how the bank could intervene. The work
 combined exploratory analysis, behavioral feature engineering, tree-based
-classification, and SHAP explainability. Our selected XGBoost model achieved
-a cross-validated **ROC-AUC of 0.9090** for customer drop-off prediction.
+classification, and SHAP explainability. Our selected LightGBM model achieved
+a cross-validated **ROC-AUC of 0.9105** for customer drop-off prediction.
 
 The project went beyond model performance. We translated the evidence into a
 redesigned onboarding journey focused on OCR and OTP reliability, accessible
@@ -60,8 +60,8 @@ dataset is not included in this public portfolio repository.
 | Customers who dropped off | 600+ |
 | Estimated acquisition value at risk | approximately VND 4.8 billion |
 | Share of failures concentrated in OCR and OTP | approximately 80% |
-| Best drop-off model | XGBoost |
-| Cross-validated ROC-AUC | **0.9090** |
+| Best drop-off model | LightGBM |
+| Cross-validated ROC-AUC | **0.9105** |
 
 The financial value is an estimate based on the customer acquisition cost
 assumption used in the competition proposal, not realized accounting loss.
@@ -107,19 +107,20 @@ cross-validation:
 
 | Model | ROC-AUC | Accuracy | F1 | Precision | Recall |
 |---|---:|---:|---:|---:|---:|
-| **XGBoost** | 0.9090 | 0.9207 | **0.5294** | 0.4380 | 0.6711 |
-| LightGBM | **0.9105** | 0.9053 | 0.5120 | 0.3897 | **0.7488** |
+| XGBoost | 0.9090 | 0.9207 | **0.5294** | 0.4380 | 0.6711 |
+| **LightGBM** | **0.9105** | 0.9053 | 0.5120 | 0.3897 | **0.7488** |
 | Random Forest | 0.9074 | **0.9267** | 0.5137 | **0.4593** | 0.5851 |
 | CatBoost | 0.9050 | 0.9089 | 0.5091 | 0.3974 | 0.7107 |
 
-LightGBM produced the highest ROC-AUC by a narrow margin of about 0.0015, but
-XGBoost was selected as the final model because it delivered the strongest
-F1-score and a more balanced precision-recall trade-off. In this imbalanced
-drop-off problem, that balance mattered more than optimizing ROC-AUC alone:
-the model still needed to surface at-risk customers while keeping the alert
-quality credible for business follow-up.
+LightGBM was selected as the final model because it achieved both the highest
+ROC-AUC and the highest recall among the tested models. This matched the
+business objective: identifying as many customers at risk of leaving the
+registration journey as possible so the bank could intervene before they
+dropped off. Although XGBoost produced the strongest F1-score, recall was more
+important for this use case because missing a high-risk customer would mean
+losing the chance for timely support.
 
-The XGBoost SHAP summary showed that **age** was the strongest model signal.
+The SHAP summary showed that **age** was the strongest model signal.
 Historical friction signals were also prominent, especially prior pending or
 failed activity around contract rejection, OTP, check failure, OCR, and the
 customer's cumulative number of attempts. Device brand and time-context
@@ -170,7 +171,7 @@ The notebooks are split from the original working notebook so GitHub can
 render each stage faster. Raw data and data-loading code are excluded, while
 saved outputs are preserved for review during interviews. The public notebook
 scope focuses on business framing, EDA, preprocessing, final-attempt drop-off
-modeling, and XGBoost SHAP interpretation.
+modeling, and SHAP interpretation.
 
 ## Gallery
 
